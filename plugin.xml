@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-firebase" version="2.0.5"
+<plugin id="cordova-plugin-firebase" version="2.0.5-custom"
 xmlns="http://apache.org/cordova/ns/plugins/1.0"
 xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>Google Firebase Plugin</name>
 
 	<license>MIT</license>
+
+	<dependency id="cordova-plugin-cocoapod-support" version="1.6.0" />
 
 	<engines>
 		<engine name="cordova" version=">=3.2.0" />
@@ -30,16 +32,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 		</config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
 			<service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService" />
-		</config-file>
-		<config-file target="AndroidManifest.xml" parent="/manifest/application">
 			<service android:name="org.apache.cordova.firebase.FirebasePluginMessagingService">
 				<intent-filter>
 					<action android:name="com.google.firebase.MESSAGING_EVENT"/>
-				</intent-filter>
-			</service>
-			<service android:name="org.apache.cordova.firebase.FirebasePluginInstanceIDService">
-				<intent-filter>
-					<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
 				</intent-filter>
 			</service>
 			<receiver android:name="org.apache.cordova.firebase.OnNotificationOpenReceiver"></receiver>
@@ -48,7 +43,6 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 		<resource-file src="src/android/cordova-plugin-firebase-strings.xml" target="res/values/cordova-plugin-firebase-strings.xml" />
 		<source-file src="src/android/FirebasePlugin.java" target-dir="src/org/apache/cordova/firebase" />
 		<source-file src="src/android/OnNotificationOpenReceiver.java" target-dir="src/org/apache/cordova/firebase" />
-		<source-file src="src/android/FirebasePluginInstanceIDService.java" target-dir="src/org/apache/cordova/firebase" />
 		<source-file src="src/android/FirebasePluginMessagingService.java" target-dir="src/org/apache/cordova/firebase" />
 		<source-file src="src/android/FirebasePluginMessageReceiver.java" target-dir="src/org/apache/cordova/firebase" />
 		<source-file src="src/android/FirebasePluginMessageReceiverManager.java" target-dir="src/org/apache/cordova/firebase" />
@@ -89,26 +83,15 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 		<header-file src="src/ios/FirebasePlugin.h" />
 		<source-file src="src/ios/FirebasePlugin.m" />
 
-		<header-file src="src/ios/Firebase/Firebase.h" />
 
-		<framework custom="true" src="src/ios/Crashlytics/Crashlytics.framework" />
-		<framework custom="true" src="src/ios/Crashlytics/Fabric.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/GoogleAppMeasurement.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/MeasurementNanoPB.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/FirebaseCore.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/FirebaseAnalytics.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/GoogleUtilities.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/nanopb.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/FirebaseInstanceID.framework" />
-		<framework custom="true" src="src/ios/Firebase/Analytics/FirebaseCoreDiagnostics.framework" />
-		<framework custom="true" src="src/ios/Firebase/Auth/GTMSessionFetcher.framework" />
-		<framework custom="true" src="src/ios/Firebase/Auth/FirebaseAuth.framework" />
-		<framework custom="true" src="src/ios/Firebase/Messaging/FirebaseMessaging.framework" />
-		<framework custom="true" src="src/ios/Firebase/Performance/GoogleToolboxForMac.framework" />
-		<framework custom="true" src="src/ios/Firebase/Performance/FirebasePerformance.framework" />
-		<framework custom="true" src="src/ios/Firebase/RemoteConfig/Protobuf.framework" />
-		<framework custom="true" src="src/ios/Firebase/RemoteConfig/FirebaseRemoteConfig.framework" />
-		<framework custom="true" src="src/ios/Firebase/RemoteConfig/FirebaseABTesting.framework" />
+		<pods-config ios-min-version="9.0" use-frameworks="true"/>
+		<framework src="Firebase/Core" type="podspec" spec="5.15.0"/>
+		<framework src="Firebase/Auth" type="podspec" spec="5.15.0"/>
+		<framework src="Firebase/Messaging" type="podspec" spec="5.15.0"/>
+		<framework src="Firebase/Performance" type="podspec" spec="5.15.0"/>
+		<framework src="Firebase/RemoteConfig" type="podspec" spec="5.15.0"/>
+		<framework src="Fabric" type="podspec" spec="1.9.0"/>
+		<framework src="Crashlytics" type="podspec" spec="3.12.0"/>
 	</platform>
 
 	<platform name="browser">
